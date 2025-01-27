@@ -21,4 +21,8 @@
         </Content>
     </ItemGroup>
 
+    <ItemGroup>
+      <Compile Remove="GitHub\Endpoints\GetUser.cs" />
+    </ItemGroup>
+
 </Project>

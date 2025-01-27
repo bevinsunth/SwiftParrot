@@ -76,3 +76,4 @@
 /Users/bevin/RiderProjects/SwiftParrot/obj/Debug/net9.0/SwiftParrot.pdb
 /Users/bevin/RiderProjects/SwiftParrot/obj/Debug/net9.0/SwiftParrot.genruntimeconfig.cache
 /Users/bevin/RiderProjects/SwiftParrot/obj/Debug/net9.0/ref/SwiftParrot.dll
+/Users/bevin/RiderProjects/SwiftParrot/obj/Debug/net9.0/SwiftParrot.sourcelink.json

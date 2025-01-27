@@ -1,4 +1,5 @@
 using SwiftParrot.GitHub.Endpoints;
+using SwiftParrot.Common.Api;
 
 namespace SwiftParrot
 {
@@ -14,7 +15,9 @@ namespace SwiftParrot
         
         private static void MapEndpoints(this WebApplication app)
         {
-            GetRepositories.Map(app);
+            var endpoints = app.MapGroup("github");
+            endpoints.MapEndpoint<GetRepositories>();
         }
+        
     }
 }

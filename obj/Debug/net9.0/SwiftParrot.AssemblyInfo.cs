@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("SwiftParrot")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+f77429a2dbbe93485826f41e62b2b3f5b086f0d3")]
 [assembly: System.Reflection.AssemblyProductAttribute("SwiftParrot")]
 [assembly: System.Reflection.AssemblyTitleAttribute("SwiftParrot")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

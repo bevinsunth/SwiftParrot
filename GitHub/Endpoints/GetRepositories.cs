@@ -1,51 +1,47 @@
 using Microsoft.AspNetCore.Http.HttpResults;
 using Refit;
+using SwiftParrot.Common;
+using SwiftParrot.Common.Api;
 
 namespace SwiftParrot.GitHub.Endpoints;
 
-public static class GetRepositories
+public class GetRepositories : IEndpoint
 {
-    public static void Map(this IEndpointRouteBuilder app)
+    public static void Map(IEndpointRouteBuilder app)
     {
-        app.MapGet("/getRecent", Handle)
-        .WithSummary("Get recent repositories of the user based on the updated_at field")
-        .Produces<Response>(StatusCodes.Status200OK)
-        .Produces(StatusCodes.Status404NotFound);
+        app.MapGet("/repository/latest", Handler)
+            .WithSummary("Get recent repositories of the user based on the updated_at field")
+            .WithRequestValidation<Request>();
     }
 
 
-    public record Request(int count);
-    //why use record?
+    public record Request(string username, int top);
+
     public record Response(Repository[] Repositories);
 
     public class RequestValidator : AbstractValidator<Request>
     {
         public RequestValidator()
         {
-            RuleFor(x => x.count).GreaterThan(0).LessThan(50);
+            RuleFor(x => x.username).NotEmpty();
+            RuleFor(x => x.top).GreaterThan(0).LessThan(50);
         }
     }
 
-
-    //why use cancellationToken?
-    private static async Task<IResult> Handle(IRepositoriesClient client, [AsParameters] Request request, CancellationToken cancellationToken)
+    //ToDo: Implement cancellationtoken
+    private static async Task<Ok<Response>>  Handler(IRepositoriesClient client, [AsParameters] Request request)
     {
-        var repositories = await client.GetUserRepositories();
-        if (repositories.Length == 0)
-        {
-            return TypedResults.NotFound();
-        }
-        repositories = repositories.OrderByDescending(r => r.updated_at).Take(request.count).ToArray();
+        var repositories = await client.GetUserRepositories(request.username);
+        repositories = repositories.OrderByDescending(r => r.updated_at).Take(request.top).ToArray();
         return TypedResults.Ok(new Response(repositories));
     }
-
-    //TODO: add mediator?
+    
 
     public record Repository(string updated_at, string created_at, string name, string description, string html_url);
 
     public interface IRepositoriesClient
     {
-        [Get("/user/repos")]
-        Task<Repository[]> GetUserRepositories();
+        [Get("/users/{username}/repos")]
+        Task<Repository[]> GetUserRepositories(string username);
     }
 }

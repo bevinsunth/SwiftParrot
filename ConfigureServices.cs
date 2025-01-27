@@ -1,4 +1,5 @@
 using System.Net.Http.Headers;
+using System.Text.Json.Serialization;
 using Microsoft.Net.Http.Headers;
 using Swashbuckle.AspNetCore.SwaggerGen;
 using SwiftParrot.GitHub.Endpoints;
@@ -17,11 +18,7 @@ public static class ConfigureServices
     private static void AddSwagger(this WebApplicationBuilder builder)
     {
         builder.Services.AddEndpointsApiExplorer();
-        builder.Services.AddSwaggerGen(options =>
-        {
-            options.CustomSchemaIds(type => type.FullName?.Replace('+', '.'));
-            options.InferSecuritySchemes();
-        });
+        builder.Services.AddSwaggerGen();
     }
     
     private static void AddRefitClients(this IServiceCollection services)
@@ -31,9 +28,15 @@ public static class ConfigureServices
             {
                 httpClient.BaseAddress = new Uri("https://api.github.com");
                 httpClient.DefaultRequestHeaders.UserAgent.Add(new ProductInfoHeaderValue("SwiftParrot", "1.0.0"));
-                
-                httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", "");
             });
+    }
+    
+    private static void ConfigureJsonOptions(this IServiceCollection services)
+    {
+        services.ConfigureHttpJsonOptions(options => {
+            options.SerializerOptions.WriteIndented = true;
+            options.SerializerOptions.IncludeFields = true;
+        });
     }
 }
 
