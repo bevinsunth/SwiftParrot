@@ -1,0 +1,49 @@
+# Build results
+[Dd]ebug/
+[Rr]elease/
+x64/
+x86/
+[Aa][Rr][Mm]/
+[Bb]in/
+[Oo]bj/
+
+# Visual Studio files
+.vs/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# Rider files
+.idea/
+*.sln.iml
+
+# Visual Studio Code files
+.vscode/
+
+# NuGet packages
+*.nupkg
+*.snupkg
+packages/
+*.nuspec
+
+# Logs
+*.log
+
+# Temporary files
+*.tmp
+*.temp
+
+# Other files
+*.db
+*.pdb
+*.mdb
+*.cache
+*.zip
+*.tar.gz
+*.tgz
+*.rar
+*.7z
+*.bak
+*.swp
+*.swo
