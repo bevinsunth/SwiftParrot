@@ -1,7 +1,4 @@
 using System.Net.Http.Headers;
-using System.Text.Json.Serialization;
-using Microsoft.Net.Http.Headers;
-using Swashbuckle.AspNetCore.SwaggerGen;
 using SwiftParrot.GitHub.Endpoints;
 
 namespace SwiftParrot;
@@ -9,16 +6,26 @@ namespace SwiftParrot;
 
 public static class ConfigureServices
 {
-    public static void AddServices(this WebApplicationBuilder builder)
+    public static void AddServices(this IServiceCollection services)
     {
-        builder.Services.AddRefitClients();
-        builder.AddSwagger();
+        services.AddRefitClients();
+        services.ConfigureCaching();
+        services.AddSwagger();
     }
-    
-    private static void AddSwagger(this WebApplicationBuilder builder)
+
+    private static void ConfigureCaching(this IServiceCollection services)
     {
-        builder.Services.AddEndpointsApiExplorer();
-        builder.Services.AddSwaggerGen();
+        services.AddOutputCache(options =>
+        {
+            options.AddBasePolicy(builder => 
+                builder.Expire(TimeSpan.FromMinutes(10)));
+        });
+    }
+
+    private static void AddSwagger(this IServiceCollection services)
+    {       
+        services.AddEndpointsApiExplorer();
+        services.AddSwaggerGen();
     }
     
     private static void AddRefitClients(this IServiceCollection services)

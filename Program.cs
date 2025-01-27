@@ -7,7 +7,7 @@ using SwiftParrot;
 //TODO: Add logging for startup
 
 var builder = WebApplication.CreateBuilder(args);
-builder.AddServices();
+builder.Services.AddServices();
 var app = builder.Build();
 app.Configure();
 app.Run();

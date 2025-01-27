@@ -10,6 +10,7 @@ namespace SwiftParrot
             app.UseSwagger();
             app.UseSwaggerUI();
             app.UseHttpsRedirection();
+            app.UseOutputCache();
             app.MapEndpoints();
         }
         

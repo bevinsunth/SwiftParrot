@@ -37,7 +37,7 @@ public class GetRepositories : IEndpoint
     }
     
 
-    public record Repository(string updated_at, string created_at, string name, string description, string html_url);
+    public record Repository(string updated_at, string created_at, string name, string description);
 
     public interface IRepositoriesClient
     {
