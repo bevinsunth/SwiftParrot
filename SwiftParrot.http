@@ -1,6 +1,0 @@
-@SwiftParrot_HostAddress = http://localhost:5173
-
-GET {{SwiftParrot_HostAddress}}/weatherforecast/
-Accept: application/json
-
-###

@@ -1,6 +1,0 @@
-﻿services:
-  swiftparrot:
-    image: swiftparrot
-    build:
-      context: .
-      dockerfile: SwiftParrot/Dockerfile
